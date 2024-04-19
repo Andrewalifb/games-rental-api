@@ -1,10 +1,11 @@
 openapi: "3.0.0"
 info:
   version: "1.0.0"
-  title: "Your API Title"
-  description: "API description"
+  title: "Games Rental API"
+  description: >
+    This API provides a platform for users to rent their favorite games. It offers various endpoints to handle user registration, login, balance top-up, and game rental transactions. Users can view their latest and all game rentals, add items to their cart, and proceed to checkout. The API also includes administrative features such as generating business revenue reports, top customer lists, and top games lists. It's designed to provide a seamless game rental experience for users while also providing valuable insights for administrators.
 servers:
-  - url: "http://localhost:8080/api/v1"
+  - url: "https://games-rental-api-13417c0ddba9.herokuapp.com/api/v1"
 paths:
   /users/register:
     post:

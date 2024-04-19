@@ -1,0 +1,1123 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Games Rental API</title>
+    <style type="text/css">
+      body {
+      	font-family: Trebuchet MS, sans-serif;
+      	font-size: 15px;
+      	color: #444;
+      	margin-right: 24px;
+      }
+      
+      h1	{
+      	font-size: 25px;
+      }
+      h2	{
+      	font-size: 20px;
+      }
+      h3	{
+      	font-size: 16px;
+      	font-weight: bold;
+      }
+      hr	{
+      	height: 1px;
+      	border: 0;
+      	color: #ddd;
+      	background-color: #ddd;
+      }
+      
+      .app-desc {
+        clear: both;
+        margin-left: 20px;
+      }
+      .param-name {
+        width: 100%;
+      }
+      .license-info {
+        margin-left: 20px;
+      }
+      
+      .license-url {
+        margin-left: 20px;
+      }
+      
+      .model {
+        margin: 0 0 0px 20px;
+      }
+      
+      .method {
+        margin-left: 20px;
+      }
+      
+      .method-notes	{
+      	margin: 10px 0 20px 0;
+      	font-size: 90%;
+      	color: #555;
+      }
+      
+      pre {
+        padding: 10px;
+        margin-bottom: 2px;
+      }
+      
+      .http-method {
+       text-transform: uppercase;
+      }
+      
+      pre.get {
+        background-color: #0f6ab4;
+      }
+      
+      pre.post {
+        background-color: #10a54a;
+      }
+      
+      pre.put {
+        background-color: #c5862b;
+      }
+      
+      pre.delete {
+        background-color: #a41e22;
+      }
+      
+      .huge	{
+      	color: #fff;
+      }
+      
+      pre.example {
+        background-color: #f3f3f3;
+        padding: 10px;
+        border: 1px solid #ddd;
+      }
+      
+      code {
+        white-space: pre;
+      }
+      
+      .nickname {
+        font-weight: bold;
+      }
+      
+      .method-path {
+        font-size: 1.5em;
+        background-color: #0f6ab4;
+      }
+      
+      .up {
+        float:right;
+      }
+      
+      .parameter {
+        width: 500px;
+      }
+      
+      .param {
+        width: 500px;
+        padding: 10px 0 0 20px;
+        font-weight: bold;
+      }
+      
+      .param-desc {
+        width: 700px;
+        padding: 0 0 0 20px;
+        color: #777;
+      }
+      
+      .param-type {
+        font-style: italic;
+      }
+      
+      .param-enum-header {
+      width: 700px;
+      padding: 0 0 0 60px;
+      color: #777;
+      font-weight: bold;
+      }
+      
+      .param-enum {
+      width: 700px;
+      padding: 0 0 0 80px;
+      color: #777;
+      font-style: italic;
+      }
+      
+      .field-label {
+        padding: 0;
+        margin: 0;
+        clear: both;
+      }
+      
+      .field-items	{
+      	padding: 0 0 15px 0;
+      	margin-bottom: 15px;
+      }
+      
+      .return-type {
+        clear: both;
+        padding-bottom: 10px;
+      }
+      
+      .param-header {
+        font-weight: bold;
+      }
+      
+      .method-tags {
+        text-align: right;
+      }
+      
+      .method-tag {
+        background: none repeat scroll 0% 0% #24A600;
+        border-radius: 3px;
+        padding: 2px 10px;
+        margin: 2px;
+        color: #FFF;
+        display: inline-block;
+        text-decoration: none;
+      }
+    </style>
+  </head>
+  <body>
+  <h1>Games Rental API</h1>
+    <div class="app-desc">This API provides a platform for users to rent their favorite games. It offers various endpoints to handle user registration, login, balance top-up, and game rental transactions. Users can view their latest and all game rentals, add items to their cart, and proceed to checkout. The API also includes administrative features such as generating business revenue reports, top customer lists, and top games lists. It's designed to provide a seamless game rental experience for users while also providing valuable insights for administrators.</div>
+    <div class="app-desc">More information: <a href="https://helloreverb.com">https://helloreverb.com</a></div>
+    <div class="app-desc">Contact Info: <a href="hello@helloreverb.com">hello@helloreverb.com</a></div>
+    <div class="app-desc">Version: 1.0.0</div>
+    <div class="app-desc">BasePath:/api/v1</div>
+    <div class="license-info">All rights reserved</div>
+    <div class="license-url">http://apache.org/licenses/LICENSE-2.0.html</div>
+  <h2>Access</h2>
+    <ol>
+      <li></li>
+    </ol>
+
+  <h2><a name="__Methods">Methods</a></h2>
+  [ Jump to <a href="#__Models">Models</a> ]
+
+  <h3>Table of Contents </h3>
+  <div class="method-summary"></div>
+  <h4><a href="#Default">Default</a></h4>
+  <ul>
+  <li><a href="#addToCart"><code><span class="http-method">post</span> /users/carts</code></a></li>
+  <li><a href="#checkoutCart"><code><span class="http-method">post</span> /users/carts/checkout/{rental_id}</code></a></li>
+  <li><a href="#generateRevenue"><code><span class="http-method">get</span> /admin/generate/bussiness_revenue</code></a></li>
+  <li><a href="#generateTopCustomers"><code><span class="http-method">get</span> /admin/generate/top_customers</code></a></li>
+  <li><a href="#generateTopGames"><code><span class="http-method">get</span> /admin/generate/top_games</code></a></li>
+  <li><a href="#getAllRentals"><code><span class="http-method">get</span> /users/rentals/all</code></a></li>
+  <li><a href="#getCart"><code><span class="http-method">get</span> /users/carts</code></a></li>
+  <li><a href="#getLatestRental"><code><span class="http-method">get</span> /users/rentals/latest_rent</code></a></li>
+  <li><a href="#loginUser"><code><span class="http-method">post</span> /users/login</code></a></li>
+  <li><a href="#registerUser"><code><span class="http-method">post</span> /users/register</code></a></li>
+  <li><a href="#topUpBalance"><code><span class="http-method">put</span> /users/deposits/topup</code></a></li>
+  </ul>
+
+  <h1><a name="Default">Default</a></h1>
+  <div class="method"><a name="addToCart"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="post"><code class="huge"><span class="http-method">post</span> /users/carts</code></pre></div>
+    <div class="method-summary">Add items to cart (<span class="nickname">addToCart</span>)</div>
+    <div class="method-notes">This endpoint adds items to the user's cart. It starts a new transaction, generates a new RentalID, calculates the total amount, creates a new payment history, inserts each item into the cart, commits the transaction, and returns a success response.</div>
+
+
+    <h3 class="field-label">Consumes</h3>
+    This API call consumes the following media types via the <span class="header">Content-Type</span> request header:
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Request body</h3>
+    <div class="field-items">
+      <div class="param">body <a href="#CartItems">CartItems</a> (optional)</div>
+      
+            <div class="param-desc"><span class="param-type">Body Parameter</span> &mdash;  </div>
+                </div>  <!-- field-items -->
+
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#AddItemsToCartResponse">AddItemsToCartResponse</a>
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "success" : {
+    "code" : 1,
+    "message" : "message"
+  },
+  "Detail" : {
+    "id" : "id",
+    "invoice_url" : "invoice_url"
+  }
+}</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    Items added to cart successfully
+        <a href="#AddItemsToCartResponse">AddItemsToCartResponse</a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="checkoutCart"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="post"><code class="huge"><span class="http-method">post</span> /users/carts/checkout/{rental_id}</code></pre></div>
+    <div class="method-summary">Checkout cart (<span class="nickname">checkoutCart</span>)</div>
+    <div class="method-notes">This endpoint processes the checkout of the user's cart. It retrieves the rental ID from the context, checks if the user's deposit balance is sufficient, updates the payment history, inserts data into the rental transaction table, reduces the user's deposit balance, sends a success payment report to the customer's email, inserts data into the rent maintenance database, removes all rental_id related data from the cart, and returns a success response.</div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">rental_id (required)</div>
+      
+            <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash;  </div>    </div>  <!-- field-items -->
+
+
+
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#ProcessCheckoutResponse">ProcessCheckoutResponse</a>
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "success" : {
+    "code" : 0,
+    "details" : "details",
+    "message" : "message"
+  }
+}</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    Checkout successful
+        <a href="#ProcessCheckoutResponse">ProcessCheckoutResponse</a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="generateRevenue"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /admin/generate/bussiness_revenue</code></pre></div>
+    <div class="method-summary">Generate business revenue report (<span class="nickname">generateRevenue</span>)</div>
+    <div class="method-notes">This endpoint generates a business revenue report. It retrieves data from the database, calculates the total revenue, and returns the result in the response.</div>
+
+
+
+
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#GenerateBussinessRevenueResponse">GenerateBussinessRevenueResponse</a>
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "data" : [ {
+    "PlatformName" : "PlatformName",
+    "TotalRentalCost" : 0.8008281904610115,
+    "MaintenanceDaysLeft" : 1,
+    "FullName" : "FullName",
+    "GameName" : "GameName",
+    "CategoryName" : "CategoryName",
+    "PaymentAmount" : 6.027456183070403,
+    "PaymentStatus" : "PaymentStatus",
+    "MaintenanceStatus" : "MaintenanceStatus"
+  }, {
+    "PlatformName" : "PlatformName",
+    "TotalRentalCost" : 0.8008281904610115,
+    "MaintenanceDaysLeft" : 1,
+    "FullName" : "FullName",
+    "GameName" : "GameName",
+    "CategoryName" : "CategoryName",
+    "PaymentAmount" : 6.027456183070403,
+    "PaymentStatus" : "PaymentStatus",
+    "MaintenanceStatus" : "MaintenanceStatus"
+  } ],
+  "success" : {
+    "code" : 1,
+    "message" : "message"
+  },
+  "totalRevenue" : 5.962133916683182
+}</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    Report generated successfully
+        <a href="#GenerateBussinessRevenueResponse">GenerateBussinessRevenueResponse</a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="generateTopCustomers"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /admin/generate/top_customers</code></pre></div>
+    <div class="method-summary">Generate top customers list (<span class="nickname">generateTopCustomers</span>)</div>
+    <div class="method-notes">This endpoint generates a list of top customers. It retrieves data from the database and returns the result in the response.</div>
+
+
+
+
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#GenerateTopCustomerListResponse">GenerateTopCustomerListResponse</a>
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "data" : [ {
+    "TotalRentalCost" : 6.027456183070403,
+    "LastRentedAt" : "LastRentedAt",
+    "UserID" : 0,
+    "FullName" : "FullName"
+  }, {
+    "TotalRentalCost" : 6.027456183070403,
+    "LastRentedAt" : "LastRentedAt",
+    "UserID" : 0,
+    "FullName" : "FullName"
+  } ],
+  "success" : {
+    "code" : 1,
+    "message" : "message"
+  }
+}</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    List generated successfully
+        <a href="#GenerateTopCustomerListResponse">GenerateTopCustomerListResponse</a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="generateTopGames"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /admin/generate/top_games</code></pre></div>
+    <div class="method-summary">Generate top games list (<span class="nickname">generateTopGames</span>)</div>
+    <div class="method-notes">This endpoint generates a list of top games. It retrieves data from the database and returns the result in the response.</div>
+
+
+
+
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#GenerateTopGamesListResponse">GenerateTopGamesListResponse</a>
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "data" : [ {
+    "PlatformName" : "PlatformName",
+    "TotalRentalCost" : 0.8008281904610115,
+    "LastRentedAt" : "LastRentedAt",
+    "GameName" : "GameName"
+  }, {
+    "PlatformName" : "PlatformName",
+    "TotalRentalCost" : 0.8008281904610115,
+    "LastRentedAt" : "LastRentedAt",
+    "GameName" : "GameName"
+  } ],
+  "success" : {
+    "code" : 1,
+    "message" : "message"
+  }
+}</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    List generated successfully
+        <a href="#GenerateTopGamesListResponse">GenerateTopGamesListResponse</a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="getAllRentals"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /users/rentals/all</code></pre></div>
+    <div class="method-summary">Get all rentals for user (<span class="nickname">getAllRentals</span>)</div>
+    <div class="method-notes">This endpoint retrieves all rental transactions for the user from the database and returns them in the response.</div>
+
+
+
+
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#GetUserAllRentResponse">GetUserAllRentResponse</a>
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "Details" : [ {
+    "RentalID" : "RentalID",
+    "FullName" : "FullName",
+    "GameName" : "GameName"
+  }, {
+    "RentalID" : "RentalID",
+    "FullName" : "FullName",
+    "GameName" : "GameName"
+  } ],
+  "Success" : {
+    "code" : 1,
+    "message" : "message"
+  }
+}</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    All rentals fetched successfully
+        <a href="#GetUserAllRentResponse">GetUserAllRentResponse</a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="getCart"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /users/carts</code></pre></div>
+    <div class="method-summary">Get user's cart (<span class="nickname">getCart</span>)</div>
+    <div class="method-notes">This endpoint retrieves the user's cart from the database and returns it in the response. It calculates the subtotal for each item in the cart.</div>
+
+
+
+
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#GetCartByUserIDResponse">GetCartByUserIDResponse</a>
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "Details" : [ {
+    "game_name" : "game_name",
+    "added_at" : "added_at",
+    "full_name" : "full_name",
+    "quantity" : 6,
+    "price" : 1.4658129805029452,
+    "sub_total" : 5.962133916683182,
+    "id" : 0,
+    "rental_id" : "rental_id"
+  }, {
+    "game_name" : "game_name",
+    "added_at" : "added_at",
+    "full_name" : "full_name",
+    "quantity" : 6,
+    "price" : 1.4658129805029452,
+    "sub_total" : 5.962133916683182,
+    "id" : 0,
+    "rental_id" : "rental_id"
+  } ],
+  "Success" : {
+    "code" : 1,
+    "message" : "message"
+  }
+}</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    Cart fetched successfully
+        <a href="#GetCartByUserIDResponse">GetCartByUserIDResponse</a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="getLatestRental"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /users/rentals/latest_rent</code></pre></div>
+    <div class="method-summary">Get latest rental ID for user (<span class="nickname">getLatestRental</span>)</div>
+    <div class="method-notes">This endpoint retrieves the latest rental ID for the user from the database and returns it in the response.</div>
+
+
+
+
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#GetUserLatestRentResponse">GetUserLatestRentResponse</a>
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "Total_Amount" : 2.3021358869347655,
+  "Data" : [ {
+    "TotalRentalCost" : 5.962133916683182,
+    "DaysLeft" : 5,
+    "RentalID" : "RentalID",
+    "Price" : 1.4658129805029452,
+    "FullName" : "FullName",
+    "RentStatus" : "RentStatus",
+    "PaymentID" : 0,
+    "GameName" : "GameName",
+    "Quantity" : 6,
+    "DueDate" : "DueDate"
+  }, {
+    "TotalRentalCost" : 5.962133916683182,
+    "DaysLeft" : 5,
+    "RentalID" : "RentalID",
+    "Price" : 1.4658129805029452,
+    "FullName" : "FullName",
+    "RentStatus" : "RentStatus",
+    "PaymentID" : 0,
+    "GameName" : "GameName",
+    "Quantity" : 6,
+    "DueDate" : "DueDate"
+  } ],
+  "Success" : {
+    "code" : 1,
+    "message" : "message"
+  }
+}</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    Latest rental ID fetched successfully
+        <a href="#GetUserLatestRentResponse">GetUserLatestRentResponse</a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="loginUser"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="post"><code class="huge"><span class="http-method">post</span> /users/login</code></pre></div>
+    <div class="method-summary">Login user (<span class="nickname">loginUser</span>)</div>
+    <div class="method-notes">This endpoint is responsible for logging in a user. It retrieves the user data from the context, generates a JWT token, and returns a success response with the token.</div>
+
+
+    <h3 class="field-label">Consumes</h3>
+    This API call consumes the following media types via the <span class="header">Content-Type</span> request header:
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Request body</h3>
+    <div class="field-items">
+      <div class="param">body <a href="#Login">Login</a> (optional)</div>
+      
+            <div class="param-desc"><span class="param-type">Body Parameter</span> &mdash;  </div>
+                </div>  <!-- field-items -->
+
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#LoginResponse">LoginResponse</a>
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "Success" : {
+    "code" : 1,
+    "message" : "message"
+  },
+  "token" : "token"
+}</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    User logged in successfully
+        <a href="#LoginResponse">LoginResponse</a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="registerUser"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="post"><code class="huge"><span class="http-method">post</span> /users/register</code></pre></div>
+    <div class="method-summary">Register a new user (<span class="nickname">registerUser</span>)</div>
+    <div class="method-notes">This endpoint is responsible for registering a new user. It retrieves the user data from the context, attempts to insert the user registration data into the database, clears the password before sending the response, and returns a success response.</div>
+
+
+    <h3 class="field-label">Consumes</h3>
+    This API call consumes the following media types via the <span class="header">Content-Type</span> request header:
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Request body</h3>
+    <div class="field-items">
+      <div class="param">body <a href="#User">User</a> (optional)</div>
+      
+            <div class="param-desc"><span class="param-type">Body Parameter</span> &mdash;  </div>
+                </div>  <!-- field-items -->
+
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#RegisterResponse">RegisterResponse</a>
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "data" : {
+    "deposit_amount" : 6.027456183070403,
+    "password" : "password",
+    "full_name" : "full_name",
+    "address" : "address",
+    "role" : "role",
+    "updated_at" : "updated_at",
+    "created_at" : "created_at",
+    "phone_number" : "phone_number",
+    "id" : 0,
+    "email" : "email"
+  },
+  "success" : {
+    "code" : 1,
+    "message" : "message"
+  }
+}</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    User registered successfully
+        <a href="#RegisterResponse">RegisterResponse</a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="topUpBalance"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="put"><code class="huge"><span class="http-method">put</span> /users/deposits/topup</code></pre></div>
+    <div class="method-summary">Top up user balance (<span class="nickname">topUpBalance</span>)</div>
+    <div class="method-notes">This endpoint tops up the user's balance. It retrieves the top-up amount from the context, updates the user's balance in the database, and returns a success response.</div>
+
+
+    <h3 class="field-label">Consumes</h3>
+    This API call consumes the following media types via the <span class="header">Content-Type</span> request header:
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Request body</h3>
+    <div class="field-items">
+      <div class="param">body <a href="#UserTopUp">UserTopUp</a> (optional)</div>
+      
+            <div class="param-desc"><span class="param-type">Body Parameter</span> &mdash;  </div>
+                </div>  <!-- field-items -->
+
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#TransactionTopUp">TransactionTopUp</a>
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "amount" : 0.8008281904610115
+}</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    Balance topped up successfully
+        <a href="#TransactionTopUp">TransactionTopUp</a>
+  </div> <!-- method -->
+  <hr/>
+
+  <h2><a name="__Models">Models</a></h2>
+  [ Jump to <a href="#__Methods">Methods</a> ]
+
+  <h3>Table of Contents</h3>
+  <ol>
+    <li><a href="#AddItemsToCartResponse"><code>AddItemsToCartResponse</code></a></li>
+    <li><a href="#AddItemsToCartResponse_Detail"><code>AddItemsToCartResponse_Detail</code></a></li>
+    <li><a href="#CartItems"><code>CartItems</code></a></li>
+    <li><a href="#GenerateBussinessRevenueResponse"><code>GenerateBussinessRevenueResponse</code></a></li>
+    <li><a href="#GenerateBussinessRevenueResponse_data"><code>GenerateBussinessRevenueResponse_data</code></a></li>
+    <li><a href="#GenerateTopCustomerListResponse"><code>GenerateTopCustomerListResponse</code></a></li>
+    <li><a href="#GenerateTopCustomerListResponse_data"><code>GenerateTopCustomerListResponse_data</code></a></li>
+    <li><a href="#GenerateTopGamesListResponse"><code>GenerateTopGamesListResponse</code></a></li>
+    <li><a href="#GenerateTopGamesListResponse_data"><code>GenerateTopGamesListResponse_data</code></a></li>
+    <li><a href="#GetCartByUserIDResponse"><code>GetCartByUserIDResponse</code></a></li>
+    <li><a href="#GetCartByUserIDResponse_Details"><code>GetCartByUserIDResponse_Details</code></a></li>
+    <li><a href="#GetUserAllRentResponse"><code>GetUserAllRentResponse</code></a></li>
+    <li><a href="#GetUserAllRentResponse_Details"><code>GetUserAllRentResponse_Details</code></a></li>
+    <li><a href="#GetUserLatestRentResponse"><code>GetUserLatestRentResponse</code></a></li>
+    <li><a href="#GetUserLatestRentResponse_Data"><code>GetUserLatestRentResponse_Data</code></a></li>
+    <li><a href="#Login"><code>Login</code></a></li>
+    <li><a href="#LoginResponse"><code>LoginResponse</code></a></li>
+    <li><a href="#ProcessCheckoutResponse"><code>ProcessCheckoutResponse</code></a></li>
+    <li><a href="#ProcessCheckoutResponse_success"><code>ProcessCheckoutResponse_success</code></a></li>
+    <li><a href="#RegisterResponse"><code>RegisterResponse</code></a></li>
+    <li><a href="#RegisterResponse_data"><code>RegisterResponse_data</code></a></li>
+    <li><a href="#RegisterResponse_success"><code>RegisterResponse_success</code></a></li>
+    <li><a href="#TopUpBalanceResponse"><code>TopUpBalanceResponse</code></a></li>
+    <li><a href="#TransactionTopUp"><code>TransactionTopUp</code></a></li>
+    <li><a href="#User"><code>User</code></a></li>
+    <li><a href="#UserTopUp"><code>UserTopUp</code></a></li>
+  </ol>
+
+  <div class="model">
+    <h3><a name="AddItemsToCartResponse"><code>AddItemsToCartResponse</code></a> <a class="up" href="#__Models">Up</a></h3>
+    
+    <div class="field-items">
+      <div class="param">Detail (optional)</div><div class="param-desc"><span class="param-type"><a href="#AddItemsToCartResponse_Detail">AddItemsToCartResponse_Detail</a></span>  </div>
+<div class="param">success (optional)</div><div class="param-desc"><span class="param-type"><a href="#RegisterResponse_success">RegisterResponse_success</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="AddItemsToCartResponse_Detail"><code>AddItemsToCartResponse_Detail</code></a> <a class="up" href="#__Models">Up</a></h3>
+    
+    <div class="field-items">
+      <div class="param">id (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">invoice_url (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="CartItems"><code>CartItems</code></a> <a class="up" href="#__Models">Up</a></h3>
+    
+    <div class="field-items">
+      <div class="param">items (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">array[String]</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="GenerateBussinessRevenueResponse"><code>GenerateBussinessRevenueResponse</code></a> <a class="up" href="#__Models">Up</a></h3>
+    
+    <div class="field-items">
+      <div class="param">data (optional)</div><div class="param-desc"><span class="param-type"><a href="#GenerateBussinessRevenueResponse_data">array[GenerateBussinessRevenueResponse_data]</a></span>  </div>
+<div class="param">success (optional)</div><div class="param-desc"><span class="param-type"><a href="#RegisterResponse_success">RegisterResponse_success</a></span>  </div>
+<div class="param">totalRevenue (optional)</div><div class="param-desc"><span class="param-type"><a href="#BigDecimal">BigDecimal</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="GenerateBussinessRevenueResponse_data"><code>GenerateBussinessRevenueResponse_data</code></a> <a class="up" href="#__Models">Up</a></h3>
+    
+    <div class="field-items">
+      <div class="param">FullName (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">GameName (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">CategoryName (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">PlatformName (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">TotalRentalCost (optional)</div><div class="param-desc"><span class="param-type"><a href="#BigDecimal">BigDecimal</a></span>  </div>
+<div class="param">PaymentAmount (optional)</div><div class="param-desc"><span class="param-type"><a href="#BigDecimal">BigDecimal</a></span>  </div>
+<div class="param">PaymentStatus (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">MaintenanceDaysLeft (optional)</div><div class="param-desc"><span class="param-type"><a href="#integer">Integer</a></span>  </div>
+<div class="param">MaintenanceStatus (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="GenerateTopCustomerListResponse"><code>GenerateTopCustomerListResponse</code></a> <a class="up" href="#__Models">Up</a></h3>
+    
+    <div class="field-items">
+      <div class="param">data (optional)</div><div class="param-desc"><span class="param-type"><a href="#GenerateTopCustomerListResponse_data">array[GenerateTopCustomerListResponse_data]</a></span>  </div>
+<div class="param">success (optional)</div><div class="param-desc"><span class="param-type"><a href="#RegisterResponse_success">RegisterResponse_success</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="GenerateTopCustomerListResponse_data"><code>GenerateTopCustomerListResponse_data</code></a> <a class="up" href="#__Models">Up</a></h3>
+    
+    <div class="field-items">
+      <div class="param">UserID (optional)</div><div class="param-desc"><span class="param-type"><a href="#integer">Integer</a></span>  </div>
+<div class="param">FullName (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">TotalRentalCost (optional)</div><div class="param-desc"><span class="param-type"><a href="#BigDecimal">BigDecimal</a></span>  </div>
+<div class="param">LastRentedAt (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="GenerateTopGamesListResponse"><code>GenerateTopGamesListResponse</code></a> <a class="up" href="#__Models">Up</a></h3>
+    
+    <div class="field-items">
+      <div class="param">data (optional)</div><div class="param-desc"><span class="param-type"><a href="#GenerateTopGamesListResponse_data">array[GenerateTopGamesListResponse_data]</a></span>  </div>
+<div class="param">success (optional)</div><div class="param-desc"><span class="param-type"><a href="#RegisterResponse_success">RegisterResponse_success</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="GenerateTopGamesListResponse_data"><code>GenerateTopGamesListResponse_data</code></a> <a class="up" href="#__Models">Up</a></h3>
+    
+    <div class="field-items">
+      <div class="param">GameName (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">PlatformName (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">TotalRentalCost (optional)</div><div class="param-desc"><span class="param-type"><a href="#BigDecimal">BigDecimal</a></span>  </div>
+<div class="param">LastRentedAt (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="GetCartByUserIDResponse"><code>GetCartByUserIDResponse</code></a> <a class="up" href="#__Models">Up</a></h3>
+    
+    <div class="field-items">
+      <div class="param">Details (optional)</div><div class="param-desc"><span class="param-type"><a href="#GetCartByUserIDResponse_Details">array[GetCartByUserIDResponse_Details]</a></span>  </div>
+<div class="param">Success (optional)</div><div class="param-desc"><span class="param-type"><a href="#RegisterResponse_success">RegisterResponse_success</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="GetCartByUserIDResponse_Details"><code>GetCartByUserIDResponse_Details</code></a> <a class="up" href="#__Models">Up</a></h3>
+    
+    <div class="field-items">
+      <div class="param">id (optional)</div><div class="param-desc"><span class="param-type"><a href="#integer">Integer</a></span>  </div>
+<div class="param">rental_id (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">full_name (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">game_name (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">quantity (optional)</div><div class="param-desc"><span class="param-type"><a href="#integer">Integer</a></span>  </div>
+<div class="param">price (optional)</div><div class="param-desc"><span class="param-type"><a href="#BigDecimal">BigDecimal</a></span>  </div>
+<div class="param">sub_total (optional)</div><div class="param-desc"><span class="param-type"><a href="#BigDecimal">BigDecimal</a></span>  </div>
+<div class="param">added_at (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="GetUserAllRentResponse"><code>GetUserAllRentResponse</code></a> <a class="up" href="#__Models">Up</a></h3>
+    
+    <div class="field-items">
+      <div class="param">Details (optional)</div><div class="param-desc"><span class="param-type"><a href="#GetUserAllRentResponse_Details">array[GetUserAllRentResponse_Details]</a></span>  </div>
+<div class="param">Success (optional)</div><div class="param-desc"><span class="param-type"><a href="#RegisterResponse_success">RegisterResponse_success</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="GetUserAllRentResponse_Details"><code>GetUserAllRentResponse_Details</code></a> <a class="up" href="#__Models">Up</a></h3>
+    
+    <div class="field-items">
+      <div class="param">RentalID (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">FullName (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">GameName (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="GetUserLatestRentResponse"><code>GetUserLatestRentResponse</code></a> <a class="up" href="#__Models">Up</a></h3>
+    
+    <div class="field-items">
+      <div class="param">Data (optional)</div><div class="param-desc"><span class="param-type"><a href="#GetUserLatestRentResponse_Data">array[GetUserLatestRentResponse_Data]</a></span>  </div>
+<div class="param">Success (optional)</div><div class="param-desc"><span class="param-type"><a href="#RegisterResponse_success">RegisterResponse_success</a></span>  </div>
+<div class="param">Total_Amount (optional)</div><div class="param-desc"><span class="param-type"><a href="#BigDecimal">BigDecimal</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="GetUserLatestRentResponse_Data"><code>GetUserLatestRentResponse_Data</code></a> <a class="up" href="#__Models">Up</a></h3>
+    
+    <div class="field-items">
+      <div class="param">RentalID (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">FullName (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">GameName (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">PaymentID (optional)</div><div class="param-desc"><span class="param-type"><a href="#integer">Integer</a></span>  </div>
+<div class="param">Quantity (optional)</div><div class="param-desc"><span class="param-type"><a href="#integer">Integer</a></span>  </div>
+<div class="param">Price (optional)</div><div class="param-desc"><span class="param-type"><a href="#BigDecimal">BigDecimal</a></span>  </div>
+<div class="param">TotalRentalCost (optional)</div><div class="param-desc"><span class="param-type"><a href="#BigDecimal">BigDecimal</a></span>  </div>
+<div class="param">DaysLeft (optional)</div><div class="param-desc"><span class="param-type"><a href="#integer">Integer</a></span>  </div>
+<div class="param">DueDate (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">RentStatus (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="Login"><code>Login</code></a> <a class="up" href="#__Models">Up</a></h3>
+    
+    <div class="field-items">
+      <div class="param">username (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">password (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="LoginResponse"><code>LoginResponse</code></a> <a class="up" href="#__Models">Up</a></h3>
+    
+    <div class="field-items">
+      <div class="param">Success (optional)</div><div class="param-desc"><span class="param-type"><a href="#RegisterResponse_success">RegisterResponse_success</a></span>  </div>
+<div class="param">token (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="ProcessCheckoutResponse"><code>ProcessCheckoutResponse</code></a> <a class="up" href="#__Models">Up</a></h3>
+    
+    <div class="field-items">
+      <div class="param">success (optional)</div><div class="param-desc"><span class="param-type"><a href="#ProcessCheckoutResponse_success">ProcessCheckoutResponse_success</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="ProcessCheckoutResponse_success"><code>ProcessCheckoutResponse_success</code></a> <a class="up" href="#__Models">Up</a></h3>
+    
+    <div class="field-items">
+      <div class="param">code (optional)</div><div class="param-desc"><span class="param-type"><a href="#integer">Integer</a></span>  </div>
+<div class="param">message (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">details (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="RegisterResponse"><code>RegisterResponse</code></a> <a class="up" href="#__Models">Up</a></h3>
+    
+    <div class="field-items">
+      <div class="param">data (optional)</div><div class="param-desc"><span class="param-type"><a href="#RegisterResponse_data">RegisterResponse_data</a></span>  </div>
+<div class="param">success (optional)</div><div class="param-desc"><span class="param-type"><a href="#RegisterResponse_success">RegisterResponse_success</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="RegisterResponse_data"><code>RegisterResponse_data</code></a> <a class="up" href="#__Models">Up</a></h3>
+    
+    <div class="field-items">
+      <div class="param">id (optional)</div><div class="param-desc"><span class="param-type"><a href="#integer">Integer</a></span>  </div>
+<div class="param">full_name (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">email (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">password (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">phone_number (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">address (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">deposit_amount (optional)</div><div class="param-desc"><span class="param-type"><a href="#BigDecimal">BigDecimal</a></span>  </div>
+<div class="param">role (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">created_at (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">updated_at (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="RegisterResponse_success"><code>RegisterResponse_success</code></a> <a class="up" href="#__Models">Up</a></h3>
+    
+    <div class="field-items">
+      <div class="param">code (optional)</div><div class="param-desc"><span class="param-type"><a href="#integer">Integer</a></span>  </div>
+<div class="param">message (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="TopUpBalanceResponse"><code>TopUpBalanceResponse</code></a> <a class="up" href="#__Models">Up</a></h3>
+    
+    <div class="field-items">
+      <div class="param">Success (optional)</div><div class="param-desc"><span class="param-type"><a href="#RegisterResponse_success">RegisterResponse_success</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="TransactionTopUp"><code>TransactionTopUp</code></a> <a class="up" href="#__Models">Up</a></h3>
+    
+    <div class="field-items">
+      <div class="param">amount (optional)</div><div class="param-desc"><span class="param-type"><a href="#BigDecimal">BigDecimal</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="User"><code>User</code></a> <a class="up" href="#__Models">Up</a></h3>
+    
+    <div class="field-items">
+      <div class="param">username (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">password (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="UserTopUp"><code>UserTopUp</code></a> <a class="up" href="#__Models">Up</a></h3>
+    
+    <div class="field-items">
+      <div class="param">amount (optional)</div><div class="param-desc"><span class="param-type"><a href="#BigDecimal">BigDecimal</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  </body>
+</html>
