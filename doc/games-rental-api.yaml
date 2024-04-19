@@ -1,0 +1,476 @@
+openapi: "3.0.0"
+info:
+  version: "1.0.0"
+  title: "Your API Title"
+  description: "API description"
+servers:
+  - url: "http://localhost:8080/api/v1"
+paths:
+  /users/register:
+    post:
+      summary: "Register a new user"
+      operationId: "registerUser"
+      description: "This endpoint is responsible for registering a new user. It retrieves the user data from the context, attempts to insert the user registration data into the database, clears the password before sending the response, and returns a success response."
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/User"
+      responses:
+        "200":
+          description: "User registered successfully"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RegisterResponse"
+  /users/login:
+    post:
+      summary: "Login user"
+      operationId: "loginUser"
+      description: "This endpoint is responsible for logging in a user. It retrieves the user data from the context, generates a JWT token, and returns a success response with the token."
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Login"
+      responses:
+        "200":
+          description: "User logged in successfully"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/LoginResponse"
+  /users/rentals/latest_rent:
+    get:
+      summary: "Get latest rental ID for user"
+      operationId: "getLatestRental"
+      description: "This endpoint retrieves the latest rental ID for the user from the database and returns it in the response."
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: "Latest rental ID fetched successfully"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GetUserLatestRentResponse"
+  /users/rentals/all:
+    get:
+      summary: "Get all rentals for user"
+      operationId: "getAllRentals"
+      description: "This endpoint retrieves all rental transactions for the user from the database and returns them in the response."
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: "All rentals fetched successfully"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GetUserAllRentResponse"
+  /users/deposits/topup:
+    put:
+      summary: "Top up user balance"
+      operationId: "topUpBalance"
+      description: "This endpoint tops up the user's balance. It retrieves the top-up amount from the context, updates the user's balance in the database, and returns a success response."
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UserTopUp"
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: "Balance topped up successfully"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TransactionTopUp"
+  /users/carts:
+    get:
+      summary: "Get user's cart"
+      operationId: "getCart"
+      description: "This endpoint retrieves the user's cart from the database and returns it in the response. It calculates the subtotal for each item in the cart."
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: "Cart fetched successfully"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GetCartByUserIDResponse"
+    post:
+      summary: "Add items to cart"
+      operationId: "addToCart"
+      description: "This endpoint adds items to the user's cart. It starts a new transaction, generates a new RentalID, calculates the total amount, creates a new payment history, inserts each item into the cart, commits the transaction, and returns a success response."
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CartItems"
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: "Items added to cart successfully"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AddItemsToCartResponse"
+  /users/carts/checkout/{rental_id}:
+    post:
+      summary: "Checkout cart"
+      operationId: "checkoutCart"
+      description: "This endpoint processes the checkout of the user's cart. It retrieves the rental ID from the context, checks if the user's deposit balance is sufficient, updates the payment history, inserts data into the rental transaction table, reduces the user's deposit balance, sends a success payment report to the customer's email, inserts data into the rent maintenance database, removes all rental_id related data from the cart, and returns a success response."
+      parameters:
+        - name: "rental_id"
+          in: "path"
+          required: true
+          schema:
+            type: "string"
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: "Checkout successful"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ProcessCheckoutResponse"
+  /admin/generate/bussiness_revenue:
+    get:
+      summary: "Generate business revenue report"
+      operationId: "generateRevenue"
+      description: "This endpoint generates a business revenue report. It retrieves data from the database, calculates the total revenue, and returns the result in the response."
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: "Report generated successfully"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GenerateBussinessRevenueResponse"
+  /admin/generate/top_customers:
+    get:
+      summary: "Generate top customers list"
+      operationId: "generateTopCustomers"
+      description: "This endpoint generates a list of top customers. It retrieves data from the database and returns the result in the response."
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: "List generated successfully"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GenerateTopCustomerListResponse"
+  /admin/generate/top_games:
+    get:
+      summary: "Generate top games list"
+      operationId: "generateTopGames"
+      description: "This endpoint generates a list of top games. It retrieves data from the database and returns the result in the response."
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: "List generated successfully"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GenerateTopGamesListResponse"
+components:
+  schemas:
+    User:
+      type: "object"
+      properties:
+        username:
+          type: "string"
+        password:
+          type: "string"
+    Login:
+      type: "object"
+      properties:
+        username:
+          type: "string"
+        password:
+          type: "string"
+    UserTopUp:
+      type: "object"
+      properties:
+        amount:
+          type: "number"
+    CartItems:
+      type: "object"
+      properties:
+        items:
+          type: "array"
+          items:
+            type: "string"
+    TransactionTopUp:
+      type: "object"
+      properties:
+        amount:
+          type: "number"
+    RegisterResponse:
+      type: "object"
+      properties:
+        data:
+          type: "object"
+          properties:
+            id:
+              type: "integer"
+            full_name:
+              type: "string"
+            email:
+              type: "string"
+            password:
+              type: "string"
+            phone_number:
+              type: "string"
+            address:
+              type: "string"
+            deposit_amount:
+              type: "number"
+            role:
+              type: "string"
+            created_at:
+              type: "string"
+            updated_at:
+              type: "string"
+        success:
+          type: "object"
+          properties:
+            code:
+              type: "integer"
+            message:
+              type: "string"
+    LoginResponse:
+      type: "object"
+      properties:
+        Success:
+          type: "object"
+          properties:
+            code:
+              type: "integer"
+            message:
+              type: "string"
+        token:
+          type: "string"
+    GetUserLatestRentResponse:
+      type: "object"
+      properties:
+        Data:
+          type: "array"
+          items:
+            type: "object"
+            properties:
+              RentalID:
+                type: "string"
+              FullName:
+                type: "string"
+              GameName:
+                type: "string"
+              PaymentID:
+                type: "integer"
+              Quantity:
+                type: "integer"
+              Price:
+                type: "number"
+              TotalRentalCost:
+                type: "number"
+              DaysLeft:
+                type: "integer"
+              DueDate:
+                type: "string"
+              RentStatus:
+                type: "string"
+        Success:
+          type: "object"
+          properties:
+            code:
+              type: "integer"
+            message:
+              type: "string"
+        Total_Amount:
+          type: "number"
+    GetUserAllRentResponse:
+      type: "object"
+      properties:
+        Details:
+          type: "array"
+          items:
+            type: "object"
+            properties:
+              RentalID:
+                type: "string"
+              FullName:
+                type: "string"
+              GameName:
+                type: "string"
+        Success:
+          type: "object"
+          properties:
+            code:
+              type: "integer"
+            message:
+              type: "string"
+    TopUpBalanceResponse:
+      type: "object"
+      properties:
+        Success:
+          type: "object"
+          properties:
+            code:
+              type: "integer"
+            message:
+              type: "string"
+    AddItemsToCartResponse:
+      type: "object"
+      properties:
+        Detail:
+          type: "object"
+          properties:
+            id:
+              type: "string"
+            invoice_url:
+              type: "string"
+        success:
+          type: "object"
+          properties:
+            code:
+              type: "integer"
+            message:
+              type: "string"
+    GetCartByUserIDResponse:
+      type: "object"
+      properties:
+        Details:
+          type: "array"
+          items:
+            type: "object"
+            properties:
+              id:
+                type: "integer"
+              rental_id:
+                type: "string"
+              full_name:
+                type: "string"
+              game_name:
+                type: "string"
+              quantity:
+                type: "integer"
+              price:
+                type: "number"
+              sub_total:
+                type: "number"
+              added_at:
+                type: "string"
+        Success:
+          type: "object"
+          properties:
+            code:
+              type: "integer"
+            message:
+              type: "string"
+    ProcessCheckoutResponse:
+      type: "object"
+      properties:
+        success:
+          type: "object"
+          properties:
+            code:
+              type: "integer"
+            message:
+              type: "string"
+            details:
+              type: "string"
+    GenerateBussinessRevenueResponse:
+      type: "object"
+      properties:
+        data:
+          type: "array"
+          items:
+            type: "object"
+            properties:
+              FullName:
+                type: "string"
+              GameName:
+                type: "string"
+              CategoryName:
+                type: "string"
+              PlatformName:
+                type: "string"
+              TotalRentalCost:
+                type: "number"
+              PaymentAmount:
+                type: "number"
+              PaymentStatus:
+                type: "string"
+              MaintenanceDaysLeft:
+                type: "integer"
+              MaintenanceStatus:
+                type: "string"
+        success:
+          type: "object"
+          properties:
+            code:
+              type: "integer"
+            message:
+              type: "string"
+        totalRevenue:
+          type: "number"
+    GenerateTopCustomerListResponse:
+      type: "object"
+      properties:
+        data:
+          type: "array"
+          items:
+            type: "object"
+            properties:
+              UserID:
+                type: "integer"
+              FullName:
+                type: "string"
+              TotalRentalCost:
+                type: "number"
+              LastRentedAt:
+                type: "string"
+        success:
+          type: "object"
+          properties:
+            code:
+              type: "integer"
+            message:
+              type: "string"
+    GenerateTopGamesListResponse:
+      type: "object"
+      properties:
+        data:
+          type: "array"
+          items:
+            type: "object"
+            properties:
+              GameName:
+                type: "string"
+              PlatformName:
+                type: "string"
+              TotalRentalCost:
+                type: "number"
+              LastRentedAt:
+                type: "string"
+        success:
+          type: "object"
+          properties:
+            code:
+              type: "integer"
+            message:
+              type: "string"
+
+  securitySchemes:
+    bearerAuth:
+      type: "http"
+      scheme: "bearer"
+      bearerFormat: "JWT"
