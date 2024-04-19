@@ -12,7 +12,7 @@ import (
 )
 
 var DB *gorm.DB
-var dbError error
+
 
 // func DatabaseConnection() {
 
